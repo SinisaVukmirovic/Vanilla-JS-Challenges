@@ -80,14 +80,35 @@ const peeps = [
 ];
 
 // 1. Add a boolean property "isAwesome" for each peep and set it to "true" if the person has at least 3 favorite numbers (or false if not).
+// if (peeps.favoriteNumbers)
+// peeps.forEach(p => {
+//     if (p.favoriteNumbers.length >= 3) {
+//         p.isAwesome = true;
+//     } else {
+//         p.isAwesome = false;
+//     }
+// });
+peeps.forEach(p => p.isAwesome = p.favoriteNumbers.length >= 3);
 
 // 2. Return a new array called "youngPeeps" with peeps 25 or younger.
+const newPeeps = peeps.filter(p => p.age <= 25);
+console.log(newPeeps)
 
 // 3. Sort the favoriteNumbers property from least to greatest for each peep in the peeps array
+peeps.forEach(p => p.favoriteNumbers.sort((a, b) => a - b));
 
 // 4. Return "true" if every person has an age below 50 and "false" if not.
+const allUnder50 = peeps.every(p => p.age < 50);
+console.log(allUnder50);
 
 // 5. Create a function called "findPeep" that returns the peep for an ID passed in and returns "not found" if the peep does not exist. Call it for an id that exists and one that does not.
+const findPeep = (id) => {
+    const peepFound = peeps.find(p => p.id === id);
+    return peepFound ? peepFound : 'Not Found';
+}
+console.log(findPeep(2));
+console.log(findPeep(12));
+console.log(findPeep(3));
 
 // 6. Create a new array called "reversedPeeps" with the peeps array order reversed
 
