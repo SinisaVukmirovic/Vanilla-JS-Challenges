@@ -1,3 +1,5 @@
+# DOM Challenges
+
 ## Element.insertAdjacentElement()
 ### The insertAdjacentElement() method of the Element interface inserts a given element node at a given position relative to the element it is invoked upon.
 ### insertAdjacentElement(position, element)
@@ -28,3 +30,8 @@
 
 ## Element.closest()
 ### The closest() method of the Element interface traverses the element and its parents (heading toward the document root) until it finds a node that matches the specified CSS selector.
+
+___
+
+# Array Challenges
+
