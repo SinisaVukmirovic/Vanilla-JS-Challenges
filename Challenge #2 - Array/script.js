@@ -1,25 +1,41 @@
 // BEGINNER CHALLENGES (unless otherwise stated, use the names array in all challenge points)
 const names = ["Derek", "Joe", "Anna", "Coen", "Chris", "Macey", "Ella"];
+console.log(names);
 
 // 1. Add a name to the beginning of the names array
+names.unshift('Added Name');
 
 // 2. Add a name to the end of the names array
+names.push('Added Another Name');
 
 // 3. Remove the name you added to the beginning of the names array
+names.shift();
 
 // 4. Remove the name you added to the end of the names array (return the name to an original)
+names.pop();
 
 // 5. Create a new array called "lowercasedNames" with each name lowercased
+// const lowercasedNames = names.map(name => name.toLowerCase());
+const lowercasedNames = [...names.map(name => name.toLowerCase())];
+// console.log(lowercasedNames)
 
 // 6. Sort the names array alphabetically
+names.sort();
 
 // 7. Find the index of "Chris"
+const indexOfChris = names.indexOf('Chris');
+console.log(indexOfChris);
 
 // 8. Create a new array called "afterChris" with all names after "Chris" in the names array
+const afterChris = names.slice(indexOfChris + 1);
+console.log(afterChris);
 
 // 9. Alter the original array to only contain the names before "Chris"
+names.splice(indexOfChris);
 
 // 10. Return "true" if the names array contains "Chris" and "false" if it does not (hint: it should be false now)
+const includesChris = names.includes('chris');
+console.log(includesChris);
 
 console.log(names);
 
