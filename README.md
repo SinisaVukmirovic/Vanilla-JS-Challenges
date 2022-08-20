@@ -25,3 +25,6 @@
 #### After the element. Only valid if the element is in the DOM tree and has a parent element.
 #### text
 #### The string to be parsed as HTML or XML and inserted into the tree.
+
+## Element.closest()
+### The closest() method of the Element interface traverses the element and its parents (heading toward the document root) until it finds a node that matches the specified CSS selector.
