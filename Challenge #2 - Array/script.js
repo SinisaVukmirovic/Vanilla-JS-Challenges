@@ -91,8 +91,8 @@ const peeps = [
 peeps.forEach(p => p.isAwesome = p.favoriteNumbers.length >= 3);
 
 // 2. Return a new array called "youngPeeps" with peeps 25 or younger.
-const newPeeps = peeps.filter(p => p.age <= 25);
-console.log(newPeeps)
+const youngPeeps = peeps.filter(p => p.age <= 25);
+console.log(youngPeeps)
 
 // 3. Sort the favoriteNumbers property from least to greatest for each peep in the peeps array
 peeps.forEach(p => p.favoriteNumbers.sort((a, b) => a - b));
@@ -111,13 +111,53 @@ console.log(findPeep(12));
 console.log(findPeep(3));
 
 // 6. Create a new array called "reversedPeeps" with the peeps array order reversed
+const reversedPeeps = [...peeps].reverse();
+// console.table(reversedPeeps);
 
 // 7. Add an additional property on each peep object called favoriteNumbersSum with a single number value which equals the total of all their favorite numbers.
+peeps.forEach(p => {
+  p.favNumsSum = p.favoriteNumbers.reduce((a, b) => a + b);
+});
 
 // 8. Create a new array called "numberOnePeeps" with all people that include a favorite number of "1". Include only their names and ids in the new array.
+// const numberOnePeeps = peeps
+//   .filter(peep => peep.favoriteNumbers.includes(1))
+//   .map(person => {
+//     return {
+//       id: person.id,
+//       name: person.name
+//     }
+// });
+const numberOnePeeps = peeps
+  .filter(peep => peep.favoriteNumbers.includes(1))
+  .map(person => (
+    {
+      id: person.id,
+      name: person.name
+    }
+));
+console.table(numberOnePeeps);
 
 // 9. Combine all peeps from the numberOnePeeps (#8 above) which are also in the youngPeeps (#2 above) array into a new array called "freshPeeps". Include peeps with unique ids only from the youngPeeps array.
+// const freshPeeps = [...numberOnePeeps];
+// youngPeeps.forEach(yp => {
+//   if (!freshPeeps.find(fp => fp.id === yp.id)) {
+//     freshPeeps.push(yp);
+//   }
+// });
+const freshPeeps = [];
+youngPeeps.forEach(yp => {
+  if (numberOnePeeps.find(fp => yp.id === fp.id)) {
+    freshPeeps.push(yp);
+  }
+});
+console.table(freshPeeps);
 
 // 10. Return a single value representing the total of all favoriteNumbers for anyone with the isAwesome property set to "true" (HINT: should be 159).
+const totalFavNums = peeps
+  .filter(numb => numb.isAwesome)
+  .reduce((a, b) => a + b.favNumsSum, 0)
+
+  console.log(totalFavNums)
 
 console.table(peeps);
