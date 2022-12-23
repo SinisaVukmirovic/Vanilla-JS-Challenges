@@ -3,12 +3,22 @@ import {peeps, comments} from './data.js'
 // EASIER CHALLENGES (using the peeps array) //
 
 // 1. Count the number of people in the people array.
+const numberOfPeeps = peeps.length;
+console.log(numberOfPeeps);
+console.log('=================================');
 
 // 2. List full names of people in a new array.
+const fullNamesArray = peeps.map(p => `${p.name.first} ${p.name.last}`);
+console.log(fullNamesArray);
+console.log('=================================');
 
 // 3. Return “true” if everyone is older than 24.
+console.log(peeps.every(p => p.age > 24));
+console.log('=================================');
 
 // 4. Return “true” if at least one person is younger than 26.
+console.log(peeps.some(p => p.age < 26));
+console.log('=================================');
 
 // 5. Return a new array called “young peeps” of all peeps less than 30.
 
