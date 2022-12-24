@@ -51,10 +51,17 @@ console.log('======================================================');
 const sortedCommentsArray = Object.values(comments)
     .filter(com => com.rating)
     .sort((a, b) => a.rating - b.rating);
-console.log('Comments from lowest rating to highest ', sortedCommentsArray);
+console.log('Comments from lowest rating to highest', sortedCommentsArray);
 console.log('======================================================');
 
 // 4. Return a new object called “commentObj” with the comment id as a key and the comment text as the value.
+const commentObj = Object.entries(comments).reduce((acc, com) => ({...acc, [com[0]]: com[1].text}), {});
+    // const [key, value] = com;
+    // return {...acc, [key]: value.text};
+    // return {...acc, [com[0]]: com[1].text};
+// }, {});
+console.log('Comment id as a key and the comment text as the value', commentObj);
+console.log('======================================================');
 
 // 5. Return a new object called “groupedRatings” with the rating as a key and an array of comments with that rating as the value. Ignore comments without a rating.
 
