@@ -33,5 +33,3 @@
 
 ___
 
-# Array Challenges
-

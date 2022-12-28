@@ -39,11 +39,13 @@ import {peeps, comments} from './data.js'
 
 // 1. List all the comments in an array of strings called “commentsArray”
 const commentsArray = Object.values(comments).map(com => com.text);
+
 console.log('List all the comments', commentsArray);
 console.log('======================================================');
 
 // 2. Return all comments with the word “love” in the comment in a new array called “loveComments”
 const loveComments = Object.values(comments).filter(com => com.text.includes('love'));
+
 console.log('comments with the word “love”', loveComments);
 console.log('======================================================');
 
@@ -51,6 +53,7 @@ console.log('======================================================');
 const sortedCommentsArray = Object.values(comments)
     .filter(com => com.rating)
     .sort((a, b) => a.rating - b.rating);
+
 console.log('Comments from lowest rating to highest', sortedCommentsArray);
 console.log('======================================================');
 
@@ -64,7 +67,33 @@ console.log('Comment id as a key and the comment text as the value', commentObj)
 console.log('======================================================');
 
 // 5. Return a new object called “groupedRatings” with the rating as a key and an array of comments with that rating as the value. Ignore comments without a rating.
+const groupedRatings = Object.values(comments).reduce((acc, com) => {
+    if (!com.rating) return acc;
+
+    const key = com.rating;
+    const currentGroup = acc[key] || [];
+
+    return {...acc, [key]: [...currentGroup, com]};
+}, {});
+
+console.log('rating as a key and an array of comments with that rating as the value', groupedRatings);
+console.log('======================================================');
 
 // 6. Return the average rating of all comments.
+const averageRating = Object.values(comments).reduce((acc, com) => {
+    return acc += com.rating || 0;
+}, 0) / Object.values(comments).filter(c => c.rating).length;
+
+console.log('Average rating:', averageRating);
+console.log('======================================================');
 
 // 7. Group all comments by the user who made the comment. Return a new object called “groupedPeepComments” with the user’s first and last name as a string key. The value of each object should be an array of comment objects by the person.
+const groupedPeepComments = Object.values(comments).reduce((acc, com) => {
+    const peep = peeps.find(p => p.id === com.userId);
+    const key = `${peep.name.first} ${peep.name.last}`;
+    const currentGroup = acc[key] || [];
+    return {...acc, [key]: [...currentGroup, com]}
+}, {});
+
+console.log('grouped Peep Comments', groupedPeepComments);
+console.log('======================================================');
