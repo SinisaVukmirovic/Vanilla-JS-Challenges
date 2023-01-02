@@ -17,7 +17,8 @@ const BASEURL = "https://dummyjson.com";
 
 // const customFetch = async (endpoint) => {
 //     try {
-//         const results = await fetch(`${BASEURL}/${endpoint}`);
+//         // const results = await fetch(`${BASEURL}/${endpoint}`);
+//         const results = await fetch(`${BASEURL}}`);
 //         // console.log(results)
 //         if (!results.ok) {
 //             throw new Error(`${results.status}: ${results.statusText}`);
@@ -72,7 +73,7 @@ const customFetch = async (endpoint, options) => {
         }
         const data = await results.json();
     
-        console.log(data);
+        // console.log(data);
         return data;
     } catch(err) {
         console.error(err.message);
@@ -89,11 +90,11 @@ const customFetch = async (endpoint, options) => {
 //     headers: { 'Content-type': 'application/json' }
 // });
 
-customFetch('products/add', {
-    method: 'POST',
-    body: JSON.stringify({'title': 'NEW ITEM!'}),
-    headers: { 'Content-type': 'application/json' }
-});
+// customFetch('products/add', {
+//     method: 'POST',
+//     body: JSON.stringify({'title': 'NEW ITEM!'}),
+//     headers: { 'Content-type': 'application/json' }
+// });
 
 // use the /users, /posts/, and /comments endpoints for #5–7
 // 5. Create a function called "getFilteredUsers" that console logs and returns all the users who are 21 years old in a new array of objects in the following structure:
@@ -108,6 +109,20 @@ customFetch('products/add', {
 ]
 See help documentation for help at https://dummyjson.com/docs/users. You can use the "customFetch" function you created earlier.
 */
+
+const getFilteredUsers = async (key, val) => {
+  const results = await customFetch(`users/filter?key=${key}&value=${val}`);
+  console.log(results);
+  const filteredUsers = results.users.map(user => ({
+    name: `${user.firstName} ${user.lastName}`,
+    age: `${user.age}`,
+    email: `${user.email}`
+  }));
+  console.table(filteredUsers);
+}
+
+getFilteredUsers('age', '21');
+
 
 // 6. Alter the getFilteredUsers function to return all filtered users in an object with the id as the key and the user object as the value. (See help documentation for help at https://dummyjson.com/docs/users)
 
