@@ -110,21 +110,42 @@ const customFetch = async (endpoint, options) => {
 See help documentation for help at https://dummyjson.com/docs/users. You can use the "customFetch" function you created earlier.
 */
 
-const getFilteredUsers = async (key, val) => {
-  const results = await customFetch(`users/filter?key=${key}&value=${val}`);
-  console.log(results);
-  const filteredUsers = results.users.map(user => ({
-    name: `${user.firstName} ${user.lastName}`,
-    age: `${user.age}`,
-    email: `${user.email}`
-  }));
-  console.table(filteredUsers);
-}
+// const getFilteredUsers = async (key, val) => {
+//   const results = await customFetch(`users/filter?key=${key}&value=${val}`);
+//   console.log(results);
+//   // implicit return (to lose the return keyword)
+//   const filteredUsers = results.users.map(user => ({
+//     name: `${user.firstName} ${user.lastName}`,
+//     age: `${user.age}`,
+//     email: `${user.email}`
+//   }));
 
-getFilteredUsers('age', '21');
+//   // const filteredUsers = results.users.map(user => {
+//   //   return {
+//   //     name: `${user.firstName} ${user.lastName}`,
+//   //     age: `${user.age}`,
+//   //     email: `${user.email}`
+//   //   }
+//   // });
+//   console.log(filteredUsers);
+// }
+
+// getFilteredUsers('age', '21');
 
 
 // 6. Alter the getFilteredUsers function to return all filtered users in an object with the id as the key and the user object as the value. (See help documentation for help at https://dummyjson.com/docs/users)
+
+const manipulateAllUserData = async () => {
+  const results = await customFetch('users');
+  // console.log(results);  
+  const filteredUsers = results.users.reduce((acc, user) => {
+    acc[user.id] = {...user};
+    return acc;
+  }, {});
+  console.log(filteredUsers);
+  return filteredUsers;
+}
+manipulateAllUserData()
 
 
 // 7. Create a new function called "getCommentsOnUsersPosts" that takes in a user id and returns all comments on any post by that user in an array of objects. Each object should contain two properties, postTitle and comments. Comments should contain the userID of the commentor and the text. Bonus points for filtering out posts without comments. Sample below:
