@@ -135,17 +135,17 @@ See help documentation for help at https://dummyjson.com/docs/users. You can use
 
 // 6. Alter the getFilteredUsers function to return all filtered users in an object with the id as the key and the user object as the value. (See help documentation for help at https://dummyjson.com/docs/users)
 
-const manipulateAllUserData = async () => {
-  const results = await customFetch('users');
-  // console.log(results);  
-  const filteredUsers = results.users.reduce((acc, user) => {
-    acc[user.id] = {...user};
-    return acc;
-  }, {});
-  console.log(filteredUsers);
-  return filteredUsers;
-}
-manipulateAllUserData()
+// const manipulateAllUserData = async () => {
+//   const results = await customFetch('users');
+//   // console.log(results);  
+//   const filteredUsers = results.users.reduce((acc, user) => {
+//     acc[user.id] = {...user};
+//     return acc;
+//   }, {});
+//   console.log(filteredUsers);
+//   return filteredUsers;
+// }
+// manipulateAllUserData()
 
 
 // 7. Create a new function called "getCommentsOnUsersPosts" that takes in a user id and returns all comments on any post by that user in an array of objects. Each object should contain two properties, postTitle and comments. Comments should contain the userID of the commentor and the text. Bonus points for filtering out posts without comments. Sample below:
@@ -169,3 +169,28 @@ manipulateAllUserData()
 ]
 See https://dummyjson.com/docs/users, https://dummyjson.com/docs/posts, and https://dummyjson.com/docs/comments for help.
 */
+
+async function getCommentsOnUsersPosts(id) {
+  const getAllPostByUser = await customFetch(`users/${id}/posts`);
+  // console.log(getAllPostByUser)
+  const allComments = await Promise.all(getAllPostByUser.posts
+                                   .map(async (post) => {
+                                      const postsComments = await customFetch(`posts/${post.id}/comments`);
+                                      // console.log(postsComments)
+                                      if (postsComments.total === 0) return;
+                                      const comments = postsComments.comments.map(com => ({
+                                        userId: com.user.id,
+                                        text: com.body
+                                      }));
+                                      return {
+                                        postTitle: post.title,
+                                        comments
+                                      }
+                                    }));
+  console.log(allComments.filter(com => com));
+  return allComments.filter(com => com);
+}
+
+getCommentsOnUsersPosts(1);
+getCommentsOnUsersPosts(12);
+getCommentsOnUsersPosts(3);
