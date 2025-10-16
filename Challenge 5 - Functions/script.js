@@ -23,7 +23,7 @@ const people = [
 //
 // Longer description: Write a higher order function returns a new array from the `people` array, but only those who meet your condition. You may not use the built-in `filter` method. Abstract the function to work with any array and condition.
 function myFilter(arr, filterFn) {
-    const newArr = [];
+    let newArr = [];
     for (const item of arr) {
         if (filterFn(item)) {
             newArr.push(item);
@@ -33,11 +33,21 @@ function myFilter(arr, filterFn) {
 }
 
 const peopleWithAges = myFilter(people, (person) => person.age);
-console.log(peopleWithAges);
+// console.log(peopleWithAges);
 
 // 2. Write your own custom map method.
 //
 // Longer description: Write a higher order function returns a new array from the `people` array. You may not use the built-in `map` method. Abstract the function to work with any array and condition.
+function myMap(arr, mapperFn) {
+    let newArr = [];
+    for (const item of arr) {
+        newArr.push(mapperFn(item));
+    }
+    return newArr;
+}
+
+const peopleNamesInCaps = myMap(people, (person) => person.name.toUpperCase());
+// console.log(peopleNamesInCaps);
 
 // 3. Write your own custom reduce method.
 //
